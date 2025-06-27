@@ -1,8 +1,8 @@
-import { Book } from "../models/book.model.js"; // Agrega esta línea
+import { Book } from "../models/book.model.js"; 
 
 export const getAllBooks = async (req, res) => {
   try {
-    const books = await Book.findAll(); // Usa el modelo correcto
+    const books = await Book.findAll(); 
     res.status(200).json(books);
   } catch (error) {
     res.status(500).json({ message: "Error al traer libros", error });
