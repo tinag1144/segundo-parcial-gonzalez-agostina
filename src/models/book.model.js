@@ -29,5 +29,5 @@ const Book = sequelize.define("Book", {
   },
 });
 
-export default Book;
+export {Book};
 

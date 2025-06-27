@@ -11,7 +11,7 @@ app.use(express.json());
 const startServer = async () => {
      await startDb(); 
      await Book.sync(); 
-     console.log("Tablas creada");
+     console.log("Tablas creadas");
      
 }
 
