@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import "dotenv/config";
-import { Book } from "../models/book.model";
+
 
 export const sequelize = new Sequelize( 
 
