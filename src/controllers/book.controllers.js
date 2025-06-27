@@ -1,0 +1,41 @@
+export const getAllBooks = async (req, res) => {
+  try {
+    const books = await Book.findAll();
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: "Error al traer libros", error });
+  }
+};
+
+export const getBookById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await Book.findByPk(id);
+    if (!book) return res.status(404).json({ message: "Libro no encontrado" });
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(500).json({ message: "Error al buscar libro", error });
+  }
+};
+
+export const createBook = async (req, res) => {
+  const { title, author, pages, genre, description } = req.body;
+
+  if (!title || !author || !pages || !genre) {
+    return res.status(400).json({ message: "Faltan campos obligatorios" });
+  }
+
+  if (!Number.isInteger(pages) || pages < 1) {
+    return res.status(400).json({ message: "La cantidad de páginas debe ser un número positivo" });
+  }
+
+  try {
+    const exists = await Book.findOne({ where: { title } });
+    if (exists) return res.status(400).json({ message: "Ya existe un libro con ese título" });
+
+    const newBook = await Book.create({ title, author, pages, genre, description });
+    res.status(201).json(newBook);
+  } catch (error) {
+    res.status(500).json({ message: "Error al crear libro", error });
+  }
+};
